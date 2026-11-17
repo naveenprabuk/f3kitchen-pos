@@ -1,0 +1,28 @@
+{
+  "name": "f3-kitchen-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "F3 Kitchen restaurant management",
+  "author": "F3 Kitchen",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env ELECTRON_DEV=1 electron .\"",
+    "build": "vite build",
+    "dist": "vite build && electron-builder"
+  },
+  "dependencies": { "react": "^18.3.1", "react-dom": "^18.3.1", "recharts": "^2.13.0" },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3", "concurrently": "^9.0.1", "cross-env": "^7.0.3",
+    "electron": "^33.0.0", "electron-builder": "^25.1.8", "vite": "^5.4.10", "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.f3kitchen.desktop",
+    "productName": "F3 Kitchen",
+    "files": ["dist/**", "electron/**"],
+    "extraResources": [{ "from": "../backend/target/backend.jar", "to": "backend.jar" }],
+    "win": { "target": "nsis" }, "mac": { "target": "dmg" }, "linux": { "target": "AppImage" }
+  },
+  "overrides": {
+  "rollup": "npm:@rollup/wasm-node@^4.24.0"
+  }
+}
